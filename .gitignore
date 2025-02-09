@@ -1,8 +1,9 @@
-.classpath
-.project
-target/
-bin/
-.settings/
-.idea/
-*.iml
+# OS
+.DS_Store
 
+# Swift
+.build
+.swiftpm
+Package.resolved
+
+#EOF
