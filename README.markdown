@@ -1,10 +1,8 @@
 
-Unbescape: escape and unescape operations in Java
-=================================================
+Unbescape: escape and unescape operations
+=========================================
 
-------------------------------------------------------------------------------
-
-_Unbescape_ is a Java library aimed at performing fully-featured and high-performance escape and unescape
+_Unbescape_ is a library aimed at performing fully-featured and high-performance escape and unescape
 operations for:
 
   * **HTML** (HTML5 and HTML 4)
@@ -21,11 +19,7 @@ operations for:
 Status
 ------
 
-This project is stable and production-ready.
-
-Current versions: 
-
-  * Version **1.1.6.RELEASE** (30 Mar 2018)
+Current versions can be found under [GitHub Release page](https://github.com/bastie/unbescape2JavApi/releases): 
 
 
 License
@@ -37,15 +31,8 @@ This software is licensed under the [Apache License 2.0](http://www.apache.org/l
 Requirements
 ------------
 
-  *   Java SE 6 or higher
+  *   see [Package.swift](https://raw.githubusercontent.com/bastie/unbescape2JavApi/refs/heads/swift/Package.swift)
 
-
-Maven info
-----------
-
-  *   groupId: `org.unbescape`   
-  *   artifactId: `unbescape`
-  *   version: (see _Current Versions_ above)
 
 
 Features
@@ -53,16 +40,12 @@ Features
 
   *   **High performance**
       *  No unneeded `String` or `char[]` objects are created, and specific optimizations are applied in order to provide maximum performance and reduce Garbage Collector latency (e.g. if a `String` has the same content after escaping/unescaping, exactly the same `String` object is returned, no copy is made).
-      *  See (and execute) the [`benchmark.sh`](https://github.com/unbescape/unbescape-tests/blob/20140429/benchmark.sh) script in the
-         [`unbescape-tests`](https://github.com/unbescape/unbescape-tests) repository for specific figures.
   *   **Highly configurable**
       *  Most escaped languages allow specifying the _type_ of escape to be performed: based on literals, on decimal numbers, hexadecimal, octal, etc.
       *  Most escaped languages allow specifying the _level_ of escape to be performed: only escape the _basic set_, escape _all non-ASCII characters_, escape _all non-alphanumeric_, etc.
       *  Provides sensible defaults and pre-configured, easy-to-use methods.
-  *   **Documented API**
-      *  Includes full JavaDoc API documentation for all public classes, explaining each escape and unescape operation in detail.
   *   **Unicode**
-      *  All escape and unescape operations support the whole Unicode character set: `U+0000` to `U+10FFFF`, including characters not representable by only one char in Java (>`U+FFFF`).
+      *  All escape and unescape operations support the whole Unicode character set: `U+0000` to `U+10FFFF`, including characters not representable by only one char (>`U+FFFF`).
   *   **HTML Escape/Unescape**
       *  Whole **HTML5** NCR (Named Character Reference) set supported, if required: `&rsqb;`,`&NewLine;`, etc. (HTML 4 set available too).
       *  Mixed named and numerical (decimal or hexa) character references supported.
@@ -113,7 +96,7 @@ Features
       *  Encloses escaped values in double-quotes (`"value"`) if they contain any non-alphanumeric characters.
       *  Escapes double-quote characters (`"`) by writing them twice: `""`.
       *  Honors rules for maximum compatibility with Microsoft Excel.
-  *   **Java Literal Escape/Unescape**
+  *   **Java literal Escape/Unescape**
       *  Support for the Java basic escape set: `\b`, `\t`, `\n`, `\f`, `\r`, `\"`, `\'`, `\\`. Note `\'` will not be
          used in escaping levels < 3 (= _all but alphanumeric_) because escaping the apostrophe is not really required in Java String literals
          (only in Character literals).
@@ -122,7 +105,7 @@ Features
          and unescape operations: `\u00E1`.
       *  Support for Octal escapes, though only in unescape operations: `\071`. Not supported
          in escape operations (use of octal escapes is not recommended by the Java Language Specification).
-  *   **Java `.properties` File Escape/Unescape**
+  *   **Java `.properties` file Escape/Unescape**
       *  Support for the Java Properties basic escape set: `\t`, `\n`, `\f`, `\r`, `\\`. When escaping `.properties`
          keys (not values) `\ `, `\:` and `\=` will be applied too.
       *  Support for escaping non-displayable, control characters: `U+0001` to `U+001F` and `U+007F` to `U+009F`.
@@ -142,15 +125,15 @@ defines a series of static methods that perform the desired operations (see the 
 
 There are simple, preconfigured methods:
 
-```java
-    final String escaped = HtmlEscape.escapeHtml5(text);
-    final String unescaped = HtmlEscape.unescapeHtml(escaped);
+```swift
+    let escaped : String = HtmlEscape.escapeHtml5(text);
+    let unescaped : String = HtmlEscape.unescapeHtml(escaped);
 ```
 
 And also those that allow a more fine-grained configuration of the escape operation:
 
-```java
-    final String result = 
+```swift
+    let result : String = 
         HtmlEscape.escapeHtml(
              text, 
              HtmlEscapeType.HTML4_NAMED_REFERENCES_DEFAULT_TO_HEXA,
@@ -167,15 +150,15 @@ defines a series of static methods that perform the desired operations (see the 
 
 There are simple, preconfigured methods:
 
-```java
-    final String escaped = XmlEscape.escapeXml11(text);
-    final String unescaped = XmlEscape.unescapeXml(escaped);
+```swift
+    let escaped : String = XmlEscape.escapeXml11(text);
+    let unescaped : String = XmlEscape.unescapeXml(escaped);
 ```
 
 And also those that allow a more fine-grained configuration of the escape operation:
 
-```java
-    final String result = 
+```swift
+    let result : String = 
         XmlEscape.escapeXml11(
              text, 
              XmlEscapeType.CHARACTER_ENTITY_REFERENCES_DEFAULT_TO_DECIMAL,
@@ -193,15 +176,15 @@ class. This class defines a series of static methods that perform the desired op
 
 There are simple, preconfigured methods:
 
-```java
-    final String escaped = JavaScriptEscape.escapeJavaScript(text);
-    final String unescaped = JavaScriptEscape.unescapeJavaScript(escaped);
+```swift
+    let escaped : String = JavaScriptEscape.escapeJavaScript(text);
+    let unescaped : String = JavaScriptEscape.unescapeJavaScript(escaped);
 ```
 
 And also those that allow a more fine-grained configuration of the escape operation:
 
-```java
-    final String result =
+```swift
+    let result : String =
         JavaScriptEscape.escapeJavaScript(
              text,
              JavaScriptEscapeType.SINGLE_ESCAPE_CHARS_DEFAULT_TO_XHEXA_AND_UHEXA,
@@ -218,15 +201,15 @@ defines a series of static methods that perform the desired operations (see the 
 
 There are simple, preconfigured methods:
 
-```java
-    final String escaped = JsonEscape.escapeJson(text);
-    final String unescaped = JsonEscape.unescapeJson(escaped);
+```swift
+    let escaped : String = JsonEscape.escapeJson(text);
+    let unescaped : String = JsonEscape.unescapeJson(escaped);
 ```
 
 And also those that allow a more fine-grained configuration of the escape operation:
 
-```java
-    final String result =
+```swift
+    let result : String =
         JsonEscape.escapeJson(
              text,
              JsonEscapeType.SINGLE_ESCAPE_CHARS_DEFAULT_TO__UHEXA,
@@ -243,18 +226,18 @@ defines a series of static methods that perform the desired operations (see the 
 
 The methods for this type of escape/unescape operations are very simple:
 
-```java
-    final String escapedPath = UriEscape.escapeUriPath(text);
-    final String escapedPathSegment = UriEscape.escapeUriPathSegment(text);
-    final String escapedQueryParam = UriEscape.escapeUriQueryParam(text);
-    final String escapedFragmentId = UriEscape.escapeUriFragmentId(text);
+```swift
+    let escapedPath : String = UriEscape.escapeUriPath(text);
+    let escapedPathSegment : String = UriEscape.escapeUriPathSegment(text);
+    let escapedQueryParam : String = UriEscape.escapeUriQueryParam(text);
+    let escapedFragmentId : String = UriEscape.escapeUriFragmentId(text);
 ```
 
-```java
-    final String unescapedPath = UriEscape.unescapeUriPath(text);
-    final String unescapedPathSegment = UriEscape.unescapeUriPathSegment(text);
-    final String unescapedQueryParam = UriEscape.unescapeUriQueryParam(text);
-    final String unescapedFragmentId = UriEscape.unescapeUriFragmentId(text);
+```swift
+    let unescapedPath : String = UriEscape.unescapeUriPath(text);
+    let unescapedPathSegment : String = UriEscape.unescapeUriPathSegment(text);
+    let unescapedQueryParam : String = UriEscape.unescapeUriQueryParam(text);
+    let unescapedFragmentId : String = UriEscape.unescapeUriFragmentId(text);
 ```
 
 
@@ -270,21 +253,21 @@ more strict syntax rules).
 
 There are simple, preconfigured methods:
 
-```java
-    final String escapedIdentifier = CssEscape.escapeCssIdentifier(text);
-    final String escapedString = CssEscape.escapeCssString(text);
-    final String unescaped = CssEscape.unescapeCss(escapedIdentifierOrString);
+```swift
+    let escapedIdentifier : String = CssEscape.escapeCssIdentifier(text);
+    let escapedString : String = CssEscape.escapeCssString(text);
+    let unescaped : String = CssEscape.unescapeCss(escapedIdentifierOrString);
 ```
 
 And also those that allow a more fine-grained configuration of the escape operation:
 
-```java
-    final String identifierResult =
+```swift
+    let identifierResult : String =
         CssEscape.escapeCssIdentifier(
              identifierText,
              CssIdentifierEscapeType.BACKSLASH_ESCAPES_DEFAULT_TO_SIX_DIGIT_HEXA,
              CssIdentifierEscapeLevel.LEVEL_2_ALL_NON_ASCII_PLUS_BASIC_ESCAPE_SET);
-    final String stringResult =
+    let stringResult : String =
         CssEscape.escapeCssString(
              stringText,
              CssStringEscapeType.BACKSLASH_ESCAPES_DEFAULT_TO_COMPACT_HEXA,
@@ -301,14 +284,14 @@ defines a series of static methods that perform the desired operations (see the 
 
 The methods for this type of escape/unescape operations are very simple:
 
-```java
-    final String escaped = CsvEscape.escapeCsv(text);
-    final String unescaped = CsvEscape.unescapeCsv(escaped);
+```swift
+    let escaped : String = CsvEscape.escapeCsv(text);
+    let unescaped : String = CsvEscape.unescapeCsv(escaped);
 ```
 
 
 
-Java Literal Escape/Unescape
+Java literal Escape/Unescape
 ----------------------------
 
 Java escape and unescape operations are performed by means of the `org.unbescape.java.JavaEscape` class. This class
@@ -316,15 +299,15 @@ defines a series of static methods that perform the desired operations (see the 
 
 There are simple, preconfigured methods:
 
-```java
-    final String escaped = JavaEscape.escapeJava(text);
-    final String unescaped = JavaEscape.unescapeJava(escaped);
+```swift
+    let escaped : String = JavaEscape.escapeJava(text);
+    let unescaped : String = JavaEscape.unescapeJava(escaped);
 ```
 
 And also those that allow a more fine-grained configuration of the escape operation:
 
-```java
-    final String result =
+```swift
+    let result : String =
         JavaEscape.escapeJava(
              text,
              JavaEscapeLevel.LEVEL_2_ALL_NON_ASCII_PLUS_BASIC_ESCAPE_SET);
@@ -332,7 +315,7 @@ And also those that allow a more fine-grained configuration of the escape operat
 
 
 
-Java `.properties` File Escape/Unescape
+Java `.properties` file Escape/Unescape
 ---------------------------------------
 
 Java `.properties` escape and unescape operations are performed by means of the `org.unbescape.properties.PropertiesEscape` class. This class
@@ -343,19 +326,19 @@ escaping of ` `, `:` and `=`).
 
 There are simple, preconfigured methods:
 
-```java
-    final String escapedKey = PropertiesEscape.escapePropertiesKey(text);
-    final String escapedString = PropertiesEscape.escapePropertiesValue(text);
-    final String unescaped = PropertiesEscape.unescapeProperties(escapedKeyOrValue);
+```swift
+    let escapedKey : String = PropertiesEscape.escapePropertiesKey(text);
+    let escapedString : String = PropertiesEscape.escapePropertiesValue(text);
+    let unescaped : String = PropertiesEscape.unescapeProperties(escapedKeyOrValue);
 ```
 
 And also those that allow a more fine-grained configuration of the escape operation:
 
-```java
-    final String identifierResult =
+```swift
+    let identifierResult : String =
         PropertiesEscape.escapePropertiesKey(
              keyText, PropertiesKeyEscapeLevel.LEVEL_2_ALL_NON_ASCII_PLUS_BASIC_ESCAPE_SET);
-    final String stringResult =
+    let stringResult : String =
         PropertiesEscape.escapePropertiesValue(
              valueText, PropertiesValueEscapeLevel.LEVEL_1_BASIC_ESCAPE_SET);
 ```
