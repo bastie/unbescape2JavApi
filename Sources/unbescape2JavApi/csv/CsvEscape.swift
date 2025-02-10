@@ -111,15 +111,12 @@ import JavApi
  * @since 1.0.0
  *
  */
-open class CsvEscape {
+public struct CsvEscape {
   
   /**
-   * <p>
    *   Perform a CSV <strong>escape</strong> operation on a <kbd>String</kbd> input.
-   * </p>
-   * <p>
+   *
    *   This method is <strong>thread-safe</strong>.
-   * </p>
    *
    * @param text the <kbd>String</kbd> to be escaped.
    * @return The escaped result <kbd>String</kbd>. As a memory-performance improvement, will return the exact
@@ -132,13 +129,10 @@ open class CsvEscape {
   }
   
   /**
-   * <p>
    *   Perform a CSV <strong>escape</strong> operation on a <kbd>String</kbd> input, writing results to
    *   a <kbd>Writer</kbd>.
-   * </p>
-   * <p>
+   *
    *   This method is <strong>thread-safe</strong>.
-   * </p>
    *
    * @param text the <kbd>String</kbd> to be escaped.
    * @param writer the <kbd>java.io.Writer</kbd> to which the escaped result will be written. Nothing will
@@ -152,13 +146,10 @@ open class CsvEscape {
   }
   
   /**
-   * <p>
    *   Perform a CSV <strong>escape</strong> operation on a <kbd>Reader</kbd> input, writing results to
    *   a <kbd>Writer</kbd>.
-   * </p>
-   * <p>
+   *
    *   This method is <strong>thread-safe</strong>.
-   * </p>
    *
    * @param reader the <kbd>Reader</kbd> reading the text to be escaped.
    * @param writer the <kbd>java.io.Writer</kbd> to which the escaped result will be written. Nothing will
@@ -172,12 +163,9 @@ open class CsvEscape {
   }
   
   /**
-   * <p>
    *   Perform a CSV <strong>escape</strong> operation on a <kbd>char[]</kbd> input.
-   * </p>
-   * <p>
+   *
    *   This method is <strong>thread-safe</strong>.
-   * </p>
    *
    * @param text the <kbd>char[]</kbd> to be escaped.
    * @param offset the position in <kbd>text</kbd> at which the escape operation should start.
@@ -203,12 +191,9 @@ open class CsvEscape {
   }
   
   /**
-   * <p>
    *   Perform a CSV <strong>unescape</strong> operation on a <kbd>String</kbd> input.
-   * </p>
-   * <p>
+   *
    *   This method is <strong>thread-safe</strong>.
-   * </p>
    *
    * @param text the <kbd>String</kbd> to be unescaped.
    * @return The unescaped result <kbd>String</kbd>. As a memory-performance improvement, will return the exact
@@ -222,13 +207,10 @@ open class CsvEscape {
   
   
   /**
-   * <p>
    *   Perform a CSV <strong>unescape</strong> operation on a <kbd>String</kbd> input, writing results
    *   to a <kbd>Writer</kbd>.
-   * </p>
-   * <p>
+   *
    *   This method is <strong>thread-safe</strong>.
-   * </p>
    *
    * @param text the <kbd>String</kbd> to be unescaped.
    * @param writer the <kbd>java.io.Writer</kbd> to which the unescaped result will be written. Nothing will
@@ -243,13 +225,10 @@ open class CsvEscape {
   
   
   /**
-   * <p>
    *   Perform a CSV <strong>unescape</strong> operation on a <kbd>Reader</kbd> input, writing results
    *   to a <kbd>Writer</kbd>.
-   * </p>
-   * <p>
+   *
    *   This method is <strong>thread-safe</strong>.
-   * </p>
    *
    * @param reader the <kbd>Reader</kbd> reading the text to be unescaped.
    * @param writer the <kbd>java.io.Writer</kbd> to which the unescaped result will be written. Nothing will
@@ -263,12 +242,9 @@ open class CsvEscape {
   }
   
   /**
-   * <p>
    *   Perform a CSV <strong>unescape</strong> operation on a <kbd>char[]</kbd> input.
-   * </p>
-   * <p>
+   *
    *   This method is <strong>thread-safe</strong>.
-   * </p>
    *
    * @param text the <kbd>char[]</kbd> to be unescaped.
    * @param offset the position in <kbd>text</kbd> at which the unescape operation should start.
@@ -341,11 +317,4 @@ open class CsvEscape {
       return n;
     }    
   }
-}
-
-extension Int {
-  public init (_ char : Character) {
-    self.init (char.unicodeScalars.first!.value)
-  }
-
 }

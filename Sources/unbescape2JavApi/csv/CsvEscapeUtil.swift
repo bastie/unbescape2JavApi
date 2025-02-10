@@ -29,7 +29,7 @@ import JavApi
  * @since 1.0.0
  *
  */
-internal final class CsvEscapeUtil {
+internal struct CsvEscapeUtil {
   
   
   
