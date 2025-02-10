@@ -31,7 +31,7 @@ import JavApi
 /// - Since: 1.1.6
 /// - Version: 1.1.6
 ///
-public final class Unbescape {
+public struct Unbescape {
   
   public static let VERSION_MAJOR = 1
   public static let VERSION_MINOR = 1

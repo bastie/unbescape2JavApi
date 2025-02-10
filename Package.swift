@@ -5,17 +5,17 @@ import PackageDescription
 
 let package = Package(
     name: "unbescape²JavApi",
-    platforms: [.macOS(.v13),.visionOS(.v1),.iOS(.v16),.tvOS(.v16)],
+    platforms: [.macOS(.v15),.visionOS(.v1),.iOS(.v16),.tvOS(.v16)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "unbescape2JavApi",
+            name: "unbescape",
             targets: ["unbescape2JavApi"]),
     ],
     dependencies: [
       .package(
         url: "https://github.com/bastie/JavApi4Swift.git",
-        .upToNextMajor(from: "0.20.0") //
+        .upToNextMajor(from: "0.22.0") //
       )
     ],
    targets: [
