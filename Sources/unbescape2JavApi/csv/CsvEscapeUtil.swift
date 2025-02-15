@@ -31,8 +31,6 @@ import JavApi
  */
 internal struct CsvEscapeUtil {
   
-  
-  
   /*
    * CSV ESCAPE/UNESCAPE OPERATIONS
    * ------------------------------
