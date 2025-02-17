@@ -270,49 +270,4 @@ public struct CsvEscape {
   
   private init() {
   }
-  
-  /*
-   * This is basically a very simplified, thread-unsafe version of StringReader that should
-   * perform better than the original StringReader by removing all synchronization structures.
-   *
-   * Note the only implemented methods are those that we know are really used from within the
-   * stream-based escape/unescape operations.
-   */
-  private class InternalStringReader : java.io.Reader, @unchecked Sendable {
-    
-    private var str : String
-    private var length : Int
-    private var next : Int = 0
-    
-    public init(_ s : String) {
-      self.str = s
-      self.length = s.count
-      super.init()
-    }
-    
-    public override func read() throws -> Int {
-      if (self.next >= length) {
-        return -1;
-      }
-      let result = self.str.charAt(self.next)
-      self.next += 1
-      return Int(result)
-    }
-    
-    public override func read(_ cbuf : inout [Character], _ off : Int, _ len : Int) throws -> Int {
-      if ((off < 0) || (off > cbuf.length) || (len < 0) ||
-          ((off + len) > cbuf.length) || ((off + len) < 0)) {
-        throw java.lang.Throwable.IndexOutOfBoundsException();
-      } else if (len == 0) {
-        return 0;
-      }
-      if (self.next >= self.length) {
-        return -1;
-      }
-      let n : Int = Math.min(self.length - self.next, len);
-      self.str.getChars(self.next, self.next + n, &cbuf, off);
-      self.next += n;
-      return n;
-    }    
-  }
 }

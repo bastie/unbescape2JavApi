@@ -17,12 +17,8 @@
  * 
  * =============================================================================
  */
-package org.unbescape.java;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
-
+import JavApi
 
 /**
  * <p>
@@ -198,837 +194,673 @@ import java.io.Writer;
  *
  */
 public final class JavaEscape {
-
-
-    /**
-     * <p>
-     *   Perform a Java level 1 (only basic set) <strong>escape</strong> operation
-     *   on a <kbd>String</kbd> input.
-     * </p>
-     * <p>
-     *   <em>Level 1</em> means this method will only escape the Java basic escape set:
-     * </p>
-     * <ul>
-     *   <li>The <em>Single Escape Characters</em>:
-     *       <kbd>&#92;b</kbd> (<kbd>U+0008</kbd>),
-     *       <kbd>&#92;t</kbd> (<kbd>U+0009</kbd>),
-     *       <kbd>&#92;n</kbd> (<kbd>U+000A</kbd>),
-     *       <kbd>&#92;f</kbd> (<kbd>U+000C</kbd>),
-     *       <kbd>&#92;r</kbd> (<kbd>U+000D</kbd>),
-     *       <kbd>&#92;&quot;</kbd> (<kbd>U+0022</kbd>),
-     *       <kbd>&#92;&#39;</kbd> (<kbd>U+0027</kbd>) and
-     *       <kbd>&#92;&#92;</kbd> (<kbd>U+005C</kbd>). Note <kbd>&#92;&#39;</kbd> is not really needed in
-     *       String literals (only in Character literals), so it won't be used until escape level 3.
-     *   </li>
-     *   <li>
-     *       Two ranges of non-displayable, control characters (some of which are already part of the
-     *       <em>single escape characters</em> list): <kbd>U+0000</kbd> to <kbd>U+001F</kbd>
-     *       and <kbd>U+007F</kbd> to <kbd>U+009F</kbd>.
-     *   </li>
-     * </ul>
-     * <p>
-     *   This method calls {@link #escapeJava(String, JavaEscapeLevel)}
-     *   with the following preconfigured values:
-     * </p>
-     * <ul>
-     *   <li><kbd>level</kbd>:
-     *       {@link JavaEscapeLevel#LEVEL_1_BASIC_ESCAPE_SET}</li>
-     * </ul>
-     * <p>
-     *   This method is <strong>thread-safe</strong>.
-     * </p>
-     *
-     * @param text the <kbd>String</kbd> to be escaped.
-     * @return The escaped result <kbd>String</kbd>. As a memory-performance improvement, will return the exact
-     *         same object as the <kbd>text</kbd> input argument if no escaping modifications were required (and
-     *         no additional <kbd>String</kbd> objects will be created during processing). Will
-     *         return <kbd>null</kbd> if input is <kbd>null</kbd>.
-     */
-    public static String escapeJavaMinimal(final String text) {
-        return escapeJava(text, JavaEscapeLevel.LEVEL_1_BASIC_ESCAPE_SET);
+  
+  /**
+   * <p>
+   *   Perform a Java level 1 (only basic set) <strong>escape</strong> operation
+   *   on a <kbd>String</kbd> input.
+   * </p>
+   * <p>
+   *   <em>Level 1</em> means this method will only escape the Java basic escape set:
+   * </p>
+   * <ul>
+   *   <li>The <em>Single Escape Characters</em>:
+   *       <kbd>&#92;b</kbd> (<kbd>U+0008</kbd>),
+   *       <kbd>&#92;t</kbd> (<kbd>U+0009</kbd>),
+   *       <kbd>&#92;n</kbd> (<kbd>U+000A</kbd>),
+   *       <kbd>&#92;f</kbd> (<kbd>U+000C</kbd>),
+   *       <kbd>&#92;r</kbd> (<kbd>U+000D</kbd>),
+   *       <kbd>&#92;&quot;</kbd> (<kbd>U+0022</kbd>),
+   *       <kbd>&#92;&#39;</kbd> (<kbd>U+0027</kbd>) and
+   *       <kbd>&#92;&#92;</kbd> (<kbd>U+005C</kbd>). Note <kbd>&#92;&#39;</kbd> is not really needed in
+   *       String literals (only in Character literals), so it won't be used until escape level 3.
+   *   </li>
+   *   <li>
+   *       Two ranges of non-displayable, control characters (some of which are already part of the
+   *       <em>single escape characters</em> list): <kbd>U+0000</kbd> to <kbd>U+001F</kbd>
+   *       and <kbd>U+007F</kbd> to <kbd>U+009F</kbd>.
+   *   </li>
+   * </ul>
+   * <p>
+   *   This method calls {@link #escapeJava(String, JavaEscapeLevel)}
+   *   with the following preconfigured values:
+   * </p>
+   * <ul>
+   *   <li><kbd>level</kbd>:
+   *       {@link JavaEscapeLevel#LEVEL_1_BASIC_ESCAPE_SET}</li>
+   * </ul>
+   * <p>
+   *   This method is <strong>thread-safe</strong>.
+   * </p>
+   *
+   * @param text the <kbd>String</kbd> to be escaped.
+   * @return The escaped result <kbd>String</kbd>. As a memory-performance improvement, will return the exact
+   *         same object as the <kbd>text</kbd> input argument if no escaping modifications were required (and
+   *         no additional <kbd>String</kbd> objects will be created during processing). Will
+   *         return <kbd>null</kbd> if input is <kbd>null</kbd>.
+   */
+  public static func escapeJavaMinimal(_ text : String) throws -> String {
+    return try escapeJava(text, JavaEscapeLevel.LEVEL_1_BASIC_ESCAPE_SET())
+  }
+  
+  /**
+   * <p>
+   *   Perform a Java level 2 (basic set and all non-ASCII chars) <strong>escape</strong> operation
+   *   on a <kbd>String</kbd> input.
+   * </p>
+   * <p>
+   *   <em>Level 2</em> means this method will escape:
+   * </p>
+   * <ul>
+   *   <li>The Java basic escape set:
+   *         <ul>
+   *           <li>The <em>Single Escape Characters</em>:
+   *               <kbd>&#92;b</kbd> (<kbd>U+0008</kbd>),
+   *               <kbd>&#92;t</kbd> (<kbd>U+0009</kbd>),
+   *               <kbd>&#92;n</kbd> (<kbd>U+000A</kbd>),
+   *               <kbd>&#92;f</kbd> (<kbd>U+000C</kbd>),
+   *               <kbd>&#92;r</kbd> (<kbd>U+000D</kbd>),
+   *               <kbd>&#92;&quot;</kbd> (<kbd>U+0022</kbd>),
+   *               <kbd>&#92;&#39;</kbd> (<kbd>U+0027</kbd>) and
+   *               <kbd>&#92;&#92;</kbd> (<kbd>U+005C</kbd>). Note <kbd>&#92;&#39;</kbd> is not really needed in
+   *               String literals (only in Character literals), so it won't be used until escape level 3.
+   *           </li>
+   *           <li>
+   *               Two ranges of non-displayable, control characters (some of which are already part of the
+   *               <em>single escape characters</em> list): <kbd>U+0000</kbd> to <kbd>U+001F</kbd>
+   *               and <kbd>U+007F</kbd> to <kbd>U+009F</kbd>.
+   *           </li>
+   *         </ul>
+   *   </li>
+   *   <li>All non ASCII characters.</li>
+   * </ul>
+   * <p>
+   *   This escape will be performed by using the Single Escape Chars whenever possible. For escaped
+   *   characters that do not have an associated SEC, default to <kbd>&#92;uFFFF</kbd>
+   *   Hexadecimal Escapes.
+   * </p>
+   * <p>
+   *   This method calls {@link #escapeJava(String, JavaEscapeLevel)}
+   *   with the following preconfigured values:
+   * </p>
+   * <ul>
+   *   <li><kbd>level</kbd>:
+   *       {@link JavaEscapeLevel#LEVEL_2_ALL_NON_ASCII_PLUS_BASIC_ESCAPE_SET}</li>
+   * </ul>
+   * <p>
+   *   This method is <strong>thread-safe</strong>.
+   * </p>
+   *
+   * @param text the <kbd>String</kbd> to be escaped.
+   * @return The escaped result <kbd>String</kbd>. As a memory-performance improvement, will return the exact
+   *         same object as the <kbd>text</kbd> input argument if no escaping modifications were required (and
+   *         no additional <kbd>String</kbd> objects will be created during processing). Will
+   *         return <kbd>null</kbd> if input is <kbd>null</kbd>.
+   */
+  public static func escapeJava(_ text : String) throws -> String {
+    return try escapeJava(text, JavaEscapeLevel.LEVEL_2_ALL_NON_ASCII_PLUS_BASIC_ESCAPE_SET())
+  }
+  
+  /**
+   * <p>
+   *   Perform a (configurable) Java <strong>escape</strong> operation on a <kbd>String</kbd> input.
+   * </p>
+   * <p>
+   *   This method will perform an escape operation according to the specified
+   *   {@link org.unbescape.java.JavaEscapeLevel} argument value.
+   * </p>
+   * <p>
+   *   All other <kbd>String</kbd>-based <kbd>escapeJava*(...)</kbd> methods call this one with preconfigured
+   *   <kbd>level</kbd> values.
+   * </p>
+   * <p>
+   *   This method is <strong>thread-safe</strong>.
+   * </p>
+   *
+   * @param text the <kbd>String</kbd> to be escaped.
+   * @param level the escape level to be applied, see {@link org.unbescape.java.JavaEscapeLevel}.
+   * @return The escaped result <kbd>String</kbd>. As a memory-performance improvement, will return the exact
+   *         same object as the <kbd>text</kbd> input argument if no escaping modifications were required (and
+   *         no additional <kbd>String</kbd> objects will be created during processing). Will
+   *         return <kbd>null</kbd> if input is <kbd>null</kbd>.
+   */
+  public static func escapeJava(_ text : String, _ level : JavaEscapeLevel) throws -> String {
+    return try JavaEscapeUtil.escape(text, level);
+  }
+  
+  /**
+   * <p>
+   *   Perform a Java level 1 (only basic set) <strong>escape</strong> operation
+   *   on a <kbd>String</kbd> input, writing results to a <kbd>Writer</kbd>.
+   * </p>
+   * <p>
+   *   <em>Level 1</em> means this method will only escape the Java basic escape set:
+   * </p>
+   * <ul>
+   *   <li>The <em>Single Escape Characters</em>:
+   *       <kbd>&#92;b</kbd> (<kbd>U+0008</kbd>),
+   *       <kbd>&#92;t</kbd> (<kbd>U+0009</kbd>),
+   *       <kbd>&#92;n</kbd> (<kbd>U+000A</kbd>),
+   *       <kbd>&#92;f</kbd> (<kbd>U+000C</kbd>),
+   *       <kbd>&#92;r</kbd> (<kbd>U+000D</kbd>),
+   *       <kbd>&#92;&quot;</kbd> (<kbd>U+0022</kbd>),
+   *       <kbd>&#92;&#39;</kbd> (<kbd>U+0027</kbd>) and
+   *       <kbd>&#92;&#92;</kbd> (<kbd>U+005C</kbd>). Note <kbd>&#92;&#39;</kbd> is not really needed in
+   *       String literals (only in Character literals), so it won't be used until escape level 3.
+   *   </li>
+   *   <li>
+   *       Two ranges of non-displayable, control characters (some of which are already part of the
+   *       <em>single escape characters</em> list): <kbd>U+0000</kbd> to <kbd>U+001F</kbd>
+   *       and <kbd>U+007F</kbd> to <kbd>U+009F</kbd>.
+   *   </li>
+   * </ul>
+   * <p>
+   *   This method calls {@link #escapeJava(String, Writer, JavaEscapeLevel)}
+   *   with the following preconfigured values:
+   * </p>
+   * <ul>
+   *   <li><kbd>level</kbd>:
+   *       {@link JavaEscapeLevel#LEVEL_1_BASIC_ESCAPE_SET}</li>
+   * </ul>
+   * <p>
+   *   This method is <strong>thread-safe</strong>.
+   * </p>
+   *
+   * @param text the <kbd>String</kbd> to be escaped.
+   * @param writer the <kbd>java.io.Writer</kbd> to which the escaped result will be written. Nothing will
+   *               be written at all to this writer if input is <kbd>null</kbd>.
+   * @throws IOException if an input/output exception occurs
+   *
+   * @since 1.1.2
+   */
+  public static func escapeJavaMinimal(_ text : String, _ writer : java.io.Writer) throws {
+    try escapeJava(text, writer, JavaEscapeLevel.LEVEL_1_BASIC_ESCAPE_SET());
+  }
+  
+  /**
+   * <p>
+   *   Perform a Java level 2 (basic set and all non-ASCII chars) <strong>escape</strong> operation
+   *   on a <kbd>String</kbd> input, writing results to a <kbd>Writer</kbd>.
+   * </p>
+   * <p>
+   *   <em>Level 2</em> means this method will escape:
+   * </p>
+   * <ul>
+   *   <li>The Java basic escape set:
+   *         <ul>
+   *           <li>The <em>Single Escape Characters</em>:
+   *               <kbd>&#92;b</kbd> (<kbd>U+0008</kbd>),
+   *               <kbd>&#92;t</kbd> (<kbd>U+0009</kbd>),
+   *               <kbd>&#92;n</kbd> (<kbd>U+000A</kbd>),
+   *               <kbd>&#92;f</kbd> (<kbd>U+000C</kbd>),
+   *               <kbd>&#92;r</kbd> (<kbd>U+000D</kbd>),
+   *               <kbd>&#92;&quot;</kbd> (<kbd>U+0022</kbd>),
+   *               <kbd>&#92;&#39;</kbd> (<kbd>U+0027</kbd>) and
+   *               <kbd>&#92;&#92;</kbd> (<kbd>U+005C</kbd>). Note <kbd>&#92;&#39;</kbd> is not really needed in
+   *               String literals (only in Character literals), so it won't be used until escape level 3.
+   *           </li>
+   *           <li>
+   *               Two ranges of non-displayable, control characters (some of which are already part of the
+   *               <em>single escape characters</em> list): <kbd>U+0000</kbd> to <kbd>U+001F</kbd>
+   *               and <kbd>U+007F</kbd> to <kbd>U+009F</kbd>.
+   *           </li>
+   *         </ul>
+   *   </li>
+   *   <li>All non ASCII characters.</li>
+   * </ul>
+   * <p>
+   *   This escape will be performed by using the Single Escape Chars whenever possible. For escaped
+   *   characters that do not have an associated SEC, default to <kbd>&#92;uFFFF</kbd>
+   *   Hexadecimal Escapes.
+   * </p>
+   * <p>
+   *   This method calls {@link #escapeJava(String, Writer, JavaEscapeLevel)}
+   *   with the following preconfigured values:
+   * </p>
+   * <ul>
+   *   <li><kbd>level</kbd>:
+   *       {@link JavaEscapeLevel#LEVEL_2_ALL_NON_ASCII_PLUS_BASIC_ESCAPE_SET}</li>
+   * </ul>
+   * <p>
+   *   This method is <strong>thread-safe</strong>.
+   * </p>
+   *
+   * @param text the <kbd>String</kbd> to be escaped.
+   * @param writer the <kbd>java.io.Writer</kbd> to which the escaped result will be written. Nothing will
+   *               be written at all to this writer if input is <kbd>null</kbd>.
+   * @throws IOException if an input/output exception occurs
+   *
+   * @since 1.1.2
+   */
+  public static func escapeJava(_ text : String, _ writer : java.io.Writer) throws {
+    try escapeJava(text, writer, JavaEscapeLevel.LEVEL_2_ALL_NON_ASCII_PLUS_BASIC_ESCAPE_SET())
+  }
+  
+  /**
+   * <p>
+   *   Perform a (configurable) Java <strong>escape</strong> operation on a <kbd>String</kbd> input,
+   *   writing results to a <kbd>Writer</kbd>.
+   * </p>
+   * <p>
+   *   This method will perform an escape operation according to the specified
+   *   {@link org.unbescape.java.JavaEscapeLevel} argument value.
+   * </p>
+   * <p>
+   *   All other <kbd>String</kbd>/<kbd>Writer</kbd>-based <kbd>escapeJava*(...)</kbd> methods call this one with preconfigured
+   *   <kbd>level</kbd> values.
+   * </p>
+   * <p>
+   *   This method is <strong>thread-safe</strong>.
+   * </p>
+   *
+   * @param text the <kbd>String</kbd> to be escaped.
+   * @param writer the <kbd>java.io.Writer</kbd> to which the escaped result will be written. Nothing will
+   *               be written at all to this writer if input is <kbd>null</kbd>.
+   * @param level the escape level to be applied, see {@link org.unbescape.java.JavaEscapeLevel}.
+   * @throws IOException if an input/output exception occurs
+   *
+   * @since 1.1.2
+   */
+  public static func escapeJava(_ text : String, _ writer : java.io.Writer, _ level : JavaEscapeLevel) throws {
+    try JavaEscapeUtil.escape(InternalStringReader(text), writer, level)
+  }
+  
+  /**
+   * <p>
+   *   Perform a Java level 1 (only basic set) <strong>escape</strong> operation
+   *   on a <kbd>Reader</kbd> input, writing results to a <kbd>Writer</kbd>.
+   * </p>
+   * <p>
+   *   <em>Level 1</em> means this method will only escape the Java basic escape set:
+   * </p>
+   * <ul>
+   *   <li>The <em>Single Escape Characters</em>:
+   *       <kbd>&#92;b</kbd> (<kbd>U+0008</kbd>),
+   *       <kbd>&#92;t</kbd> (<kbd>U+0009</kbd>),
+   *       <kbd>&#92;n</kbd> (<kbd>U+000A</kbd>),
+   *       <kbd>&#92;f</kbd> (<kbd>U+000C</kbd>),
+   *       <kbd>&#92;r</kbd> (<kbd>U+000D</kbd>),
+   *       <kbd>&#92;&quot;</kbd> (<kbd>U+0022</kbd>),
+   *       <kbd>&#92;&#39;</kbd> (<kbd>U+0027</kbd>) and
+   *       <kbd>&#92;&#92;</kbd> (<kbd>U+005C</kbd>). Note <kbd>&#92;&#39;</kbd> is not really needed in
+   *       String literals (only in Character literals), so it won't be used until escape level 3.
+   *   </li>
+   *   <li>
+   *       Two ranges of non-displayable, control characters (some of which are already part of the
+   *       <em>single escape characters</em> list): <kbd>U+0000</kbd> to <kbd>U+001F</kbd>
+   *       and <kbd>U+007F</kbd> to <kbd>U+009F</kbd>.
+   *   </li>
+   * </ul>
+   * <p>
+   *   This method calls {@link #escapeJava(Reader, Writer, JavaEscapeLevel)}
+   *   with the following preconfigured values:
+   * </p>
+   * <ul>
+   *   <li><kbd>level</kbd>:
+   *       {@link JavaEscapeLevel#LEVEL_1_BASIC_ESCAPE_SET}</li>
+   * </ul>
+   * <p>
+   *   This method is <strong>thread-safe</strong>.
+   * </p>
+   *
+   * @param reader the <kbd>Reader</kbd> reading the text to be escaped.
+   * @param writer the <kbd>java.io.Writer</kbd> to which the escaped result will be written. Nothing will
+   *               be written at all to this writer if input is <kbd>null</kbd>.
+   * @throws IOException if an input/output exception occurs
+   *
+   * @since 1.1.2
+   */
+  public static func escapeJavaMinimal(_ reader : java.io.Reader, _ writer : java.io.Writer) throws {
+    try escapeJava(reader, writer, JavaEscapeLevel.LEVEL_1_BASIC_ESCAPE_SET())
+  }
+  
+  /**
+   * <p>
+   *   Perform a Java level 2 (basic set and all non-ASCII chars) <strong>escape</strong> operation
+   *   on a <kbd>Reader</kbd> input, writing results to a <kbd>Writer</kbd>.
+   * </p>
+   * <p>
+   *   <em>Level 2</em> means this method will escape:
+   * </p>
+   * <ul>
+   *   <li>The Java basic escape set:
+   *         <ul>
+   *           <li>The <em>Single Escape Characters</em>:
+   *               <kbd>&#92;b</kbd> (<kbd>U+0008</kbd>),
+   *               <kbd>&#92;t</kbd> (<kbd>U+0009</kbd>),
+   *               <kbd>&#92;n</kbd> (<kbd>U+000A</kbd>),
+   *               <kbd>&#92;f</kbd> (<kbd>U+000C</kbd>),
+   *               <kbd>&#92;r</kbd> (<kbd>U+000D</kbd>),
+   *               <kbd>&#92;&quot;</kbd> (<kbd>U+0022</kbd>),
+   *               <kbd>&#92;&#39;</kbd> (<kbd>U+0027</kbd>) and
+   *               <kbd>&#92;&#92;</kbd> (<kbd>U+005C</kbd>). Note <kbd>&#92;&#39;</kbd> is not really needed in
+   *               String literals (only in Character literals), so it won't be used until escape level 3.
+   *           </li>
+   *           <li>
+   *               Two ranges of non-displayable, control characters (some of which are already part of the
+   *               <em>single escape characters</em> list): <kbd>U+0000</kbd> to <kbd>U+001F</kbd>
+   *               and <kbd>U+007F</kbd> to <kbd>U+009F</kbd>.
+   *           </li>
+   *         </ul>
+   *   </li>
+   *   <li>All non ASCII characters.</li>
+   * </ul>
+   * <p>
+   *   This escape will be performed by using the Single Escape Chars whenever possible. For escaped
+   *   characters that do not have an associated SEC, default to <kbd>&#92;uFFFF</kbd>
+   *   Hexadecimal Escapes.
+   * </p>
+   * <p>
+   *   This method calls {@link #escapeJava(Reader, Writer, JavaEscapeLevel)}
+   *   with the following preconfigured values:
+   * </p>
+   * <ul>
+   *   <li><kbd>level</kbd>:
+   *       {@link JavaEscapeLevel#LEVEL_2_ALL_NON_ASCII_PLUS_BASIC_ESCAPE_SET}</li>
+   * </ul>
+   * <p>
+   *   This method is <strong>thread-safe</strong>.
+   * </p>
+   *
+   * @param reader the <kbd>Reader</kbd> reading the text to be escaped.
+   * @param writer the <kbd>java.io.Writer</kbd> to which the escaped result will be written. Nothing will
+   *               be written at all to this writer if input is <kbd>null</kbd>.
+   * @throws IOException if an input/output exception occurs
+   *
+   * @since 1.1.2
+   */
+  public static func escapeJava(_ reader : java.io.Reader, _ writer : java.io.Writer) throws {
+    try escapeJava(reader, writer, JavaEscapeLevel.LEVEL_2_ALL_NON_ASCII_PLUS_BASIC_ESCAPE_SET())
+  }
+  
+  /**
+   * <p>
+   *   Perform a (configurable) Java <strong>escape</strong> operation on a <kbd>Reader</kbd> input,
+   *   writing results to a <kbd>Writer</kbd>.
+   * </p>
+   * <p>
+   *   This method will perform an escape operation according to the specified
+   *   {@link org.unbescape.java.JavaEscapeLevel} argument value.
+   * </p>
+   * <p>
+   *   All other <kbd>String</kbd>/<kbd>Writer</kbd>-based <kbd>escapeJava*(...)</kbd> methods call this one with preconfigured
+   *   <kbd>level</kbd> values.
+   * </p>
+   * <p>
+   *   This method is <strong>thread-safe</strong>.
+   * </p>
+   *
+   * @param reader the <kbd>Reader</kbd> reading the text to be escaped.
+   * @param writer the <kbd>java.io.Writer</kbd> to which the escaped result will be written. Nothing will
+   *               be written at all to this writer if input is <kbd>null</kbd>.
+   * @param level the escape level to be applied, see {@link org.unbescape.java.JavaEscapeLevel}.
+   * @throws IOException if an input/output exception occurs
+   *
+   * @since 1.1.2
+   */
+  public static func escapeJava(_ reader : java.io.Reader, _ writer : java.io.Writer, _ level : JavaEscapeLevel) throws {
+    try JavaEscapeUtil.escape(reader, writer, level);
+  }
+  
+  /**
+   * <p>
+   *   Perform a Java level 1 (only basic set) <strong>escape</strong> operation
+   *   on a <kbd>char[]</kbd> input.
+   * </p>
+   * <p>
+   *   <em>Level 1</em> means this method will only escape the Java basic escape set:
+   * </p>
+   * <ul>
+   *   <li>The <em>Single Escape Characters</em>:
+   *       <kbd>&#92;b</kbd> (<kbd>U+0008</kbd>),
+   *       <kbd>&#92;t</kbd> (<kbd>U+0009</kbd>),
+   *       <kbd>&#92;n</kbd> (<kbd>U+000A</kbd>),
+   *       <kbd>&#92;f</kbd> (<kbd>U+000C</kbd>),
+   *       <kbd>&#92;r</kbd> (<kbd>U+000D</kbd>),
+   *       <kbd>&#92;&quot;</kbd> (<kbd>U+0022</kbd>),
+   *       <kbd>&#92;&#39;</kbd> (<kbd>U+0027</kbd>) and
+   *       <kbd>&#92;&#92;</kbd> (<kbd>U+005C</kbd>). Note <kbd>&#92;&#39;</kbd> is not really needed in
+   *       String literals (only in Character literals), so it won't be used until escape level 3.
+   *   </li>
+   *   <li>
+   *       Two ranges of non-displayable, control characters (some of which are already part of the
+   *       <em>single escape characters</em> list): <kbd>U+0000</kbd> to <kbd>U+001F</kbd>
+   *       and <kbd>U+007F</kbd> to <kbd>U+009F</kbd>.
+   *   </li>
+   * </ul>
+   * <p>
+   *   This method calls {@link #escapeJava(char[], int, int, java.io.Writer, JavaEscapeLevel)}
+   *   with the following preconfigured values:
+   * </p>
+   * <ul>
+   *   <li><kbd>level</kbd>:
+   *       {@link JavaEscapeLevel#LEVEL_1_BASIC_ESCAPE_SET}</li>
+   * </ul>
+   * <p>
+   *   This method is <strong>thread-safe</strong>.
+   * </p>
+   *
+   * @param text the <kbd>char[]</kbd> to be escaped.
+   * @param offset the position in <kbd>text</kbd> at which the escape operation should start.
+   * @param len the number of characters in <kbd>text</kbd> that should be escaped.
+   * @param writer the <kbd>java.io.Writer</kbd> to which the escaped result will be written. Nothing will
+   *               be written at all to this writer if input is <kbd>null</kbd>.
+   * @throws IOException if an input/output exception occurs
+   */
+  public static func escapeJavaMinimal(_ text : [Character], _ offset : Int, _ len : Int, _ writer : java.io.Writer) throws {
+    try escapeJava(text, offset, len, writer, JavaEscapeLevel.LEVEL_1_BASIC_ESCAPE_SET())
+  }
+  
+  /**
+   * <p>
+   *   Perform a Java level 2 (basic set and all non-ASCII chars) <strong>escape</strong> operation
+   *   on a <kbd>char[]</kbd> input.
+   * </p>
+   * <p>
+   *   <em>Level 2</em> means this method will escape:
+   * </p>
+   * <ul>
+   *   <li>The Java basic escape set:
+   *         <ul>
+   *           <li>The <em>Single Escape Characters</em>:
+   *               <kbd>&#92;b</kbd> (<kbd>U+0008</kbd>),
+   *               <kbd>&#92;t</kbd> (<kbd>U+0009</kbd>),
+   *               <kbd>&#92;n</kbd> (<kbd>U+000A</kbd>),
+   *               <kbd>&#92;f</kbd> (<kbd>U+000C</kbd>),
+   *               <kbd>&#92;r</kbd> (<kbd>U+000D</kbd>),
+   *               <kbd>&#92;&quot;</kbd> (<kbd>U+0022</kbd>),
+   *               <kbd>&#92;&#39;</kbd> (<kbd>U+0027</kbd>) and
+   *               <kbd>&#92;&#92;</kbd> (<kbd>U+005C</kbd>). Note <kbd>&#92;&#39;</kbd> is not really needed in
+   *               String literals (only in Character literals), so it won't be used until escape level 3.
+   *           </li>
+   *           <li>
+   *               Two ranges of non-displayable, control characters (some of which are already part of the
+   *               <em>single escape characters</em> list): <kbd>U+0000</kbd> to <kbd>U+001F</kbd>
+   *               and <kbd>U+007F</kbd> to <kbd>U+009F</kbd>.
+   *           </li>
+   *         </ul>
+   *   </li>
+   *   <li>All non ASCII characters.</li>
+   * </ul>
+   * <p>
+   *   This escape will be performed by using the Single Escape Chars whenever possible. For escaped
+   *   characters that do not have an associated SEC, default to <kbd>&#92;uFFFF</kbd>
+   *   Hexadecimal Escapes.
+   * </p>
+   * <p>
+   *   This method calls {@link #escapeJava(char[], int, int, java.io.Writer, JavaEscapeLevel)}
+   *   with the following preconfigured values:
+   * </p>
+   * <ul>
+   *   <li><kbd>level</kbd>:
+   *       {@link JavaEscapeLevel#LEVEL_2_ALL_NON_ASCII_PLUS_BASIC_ESCAPE_SET}</li>
+   * </ul>
+   * <p>
+   *   This method is <strong>thread-safe</strong>.
+   * </p>
+   *
+   * @param text the <kbd>char[]</kbd> to be escaped.
+   * @param offset the position in <kbd>text</kbd> at which the escape operation should start.
+   * @param len the number of characters in <kbd>text</kbd> that should be escaped.
+   * @param writer the <kbd>java.io.Writer</kbd> to which the escaped result will be written. Nothing will
+   *               be written at all to this writer if input is <kbd>null</kbd>.
+   * @throws IOException if an input/output exception occurs
+   */
+  public static func escapeJava(_ text : [Character], _ offset : Int, _ len : Int, _ writer : java.io.Writer) throws {
+    try escapeJava(text, offset, len, writer, JavaEscapeLevel.LEVEL_2_ALL_NON_ASCII_PLUS_BASIC_ESCAPE_SET())
+  }
+  
+  /**
+   * <p>
+   *   Perform a (configurable) Java <strong>escape</strong> operation on a <kbd>char[]</kbd> input.
+   * </p>
+   * <p>
+   *   This method will perform an escape operation according to the specified
+   *   {@link org.unbescape.java.JavaEscapeLevel} argument value.
+   * </p>
+   * <p>
+   *   All other <kbd>char[]</kbd>-based <kbd>escapeJava*(...)</kbd> methods call this one with preconfigured
+   *   <kbd>level</kbd> values.
+   * </p>
+   * <p>
+   *   This method is <strong>thread-safe</strong>.
+   * </p>
+   *
+   * @param text the <kbd>char[]</kbd> to be escaped.
+   * @param offset the position in <kbd>text</kbd> at which the escape operation should start.
+   * @param len the number of characters in <kbd>text</kbd> that should be escaped.
+   * @param writer the <kbd>java.io.Writer</kbd> to which the escaped result will be written. Nothing will
+   *               be written at all to this writer if input is <kbd>null</kbd>.
+   * @param level the escape level to be applied, see {@link org.unbescape.java.JavaEscapeLevel}.
+   * @throws IOException if an input/output exception occurs
+   */
+  public static func escapeJava(_ text : [Character], _ offset : Int, _ len : Int, _ writer : java.io.Writer, _ level : JavaEscapeLevel) throws {
+    
+    let textLen = text.count
+    
+    if (offset < 0 || offset > textLen) {
+      throw Throwable.IllegalArgumentException("Invalid (offset, len). offset=\(offset), len=\(len), text.length=\(textLen)")
     }
-
-
-    /**
-     * <p>
-     *   Perform a Java level 2 (basic set and all non-ASCII chars) <strong>escape</strong> operation
-     *   on a <kbd>String</kbd> input.
-     * </p>
-     * <p>
-     *   <em>Level 2</em> means this method will escape:
-     * </p>
-     * <ul>
-     *   <li>The Java basic escape set:
-     *         <ul>
-     *           <li>The <em>Single Escape Characters</em>:
-     *               <kbd>&#92;b</kbd> (<kbd>U+0008</kbd>),
-     *               <kbd>&#92;t</kbd> (<kbd>U+0009</kbd>),
-     *               <kbd>&#92;n</kbd> (<kbd>U+000A</kbd>),
-     *               <kbd>&#92;f</kbd> (<kbd>U+000C</kbd>),
-     *               <kbd>&#92;r</kbd> (<kbd>U+000D</kbd>),
-     *               <kbd>&#92;&quot;</kbd> (<kbd>U+0022</kbd>),
-     *               <kbd>&#92;&#39;</kbd> (<kbd>U+0027</kbd>) and
-     *               <kbd>&#92;&#92;</kbd> (<kbd>U+005C</kbd>). Note <kbd>&#92;&#39;</kbd> is not really needed in
-     *               String literals (only in Character literals), so it won't be used until escape level 3.
-     *           </li>
-     *           <li>
-     *               Two ranges of non-displayable, control characters (some of which are already part of the
-     *               <em>single escape characters</em> list): <kbd>U+0000</kbd> to <kbd>U+001F</kbd>
-     *               and <kbd>U+007F</kbd> to <kbd>U+009F</kbd>.
-     *           </li>
-     *         </ul>
-     *   </li>
-     *   <li>All non ASCII characters.</li>
-     * </ul>
-     * <p>
-     *   This escape will be performed by using the Single Escape Chars whenever possible. For escaped
-     *   characters that do not have an associated SEC, default to <kbd>&#92;uFFFF</kbd>
-     *   Hexadecimal Escapes.
-     * </p>
-     * <p>
-     *   This method calls {@link #escapeJava(String, JavaEscapeLevel)}
-     *   with the following preconfigured values:
-     * </p>
-     * <ul>
-     *   <li><kbd>level</kbd>:
-     *       {@link JavaEscapeLevel#LEVEL_2_ALL_NON_ASCII_PLUS_BASIC_ESCAPE_SET}</li>
-     * </ul>
-     * <p>
-     *   This method is <strong>thread-safe</strong>.
-     * </p>
-     *
-     * @param text the <kbd>String</kbd> to be escaped.
-     * @return The escaped result <kbd>String</kbd>. As a memory-performance improvement, will return the exact
-     *         same object as the <kbd>text</kbd> input argument if no escaping modifications were required (and
-     *         no additional <kbd>String</kbd> objects will be created during processing). Will
-     *         return <kbd>null</kbd> if input is <kbd>null</kbd>.
-     */
-    public static String escapeJava(final String text) {
-        return escapeJava(text, JavaEscapeLevel.LEVEL_2_ALL_NON_ASCII_PLUS_BASIC_ESCAPE_SET);
+    
+    if (len < 0 || (offset + len) > textLen) {
+      throw Throwable.IllegalArgumentException("Invalid (offset, len). offset=\(offset), len=\(len), text.length=\(textLen)")
     }
-
-
-    /**
-     * <p>
-     *   Perform a (configurable) Java <strong>escape</strong> operation on a <kbd>String</kbd> input.
-     * </p>
-     * <p>
-     *   This method will perform an escape operation according to the specified
-     *   {@link org.unbescape.java.JavaEscapeLevel} argument value.
-     * </p>
-     * <p>
-     *   All other <kbd>String</kbd>-based <kbd>escapeJava*(...)</kbd> methods call this one with preconfigured
-     *   <kbd>level</kbd> values.
-     * </p>
-     * <p>
-     *   This method is <strong>thread-safe</strong>.
-     * </p>
-     *
-     * @param text the <kbd>String</kbd> to be escaped.
-     * @param level the escape level to be applied, see {@link org.unbescape.java.JavaEscapeLevel}.
-     * @return The escaped result <kbd>String</kbd>. As a memory-performance improvement, will return the exact
-     *         same object as the <kbd>text</kbd> input argument if no escaping modifications were required (and
-     *         no additional <kbd>String</kbd> objects will be created during processing). Will
-     *         return <kbd>null</kbd> if input is <kbd>null</kbd>.
-     */
-    public static String escapeJava(final String text, final JavaEscapeLevel level) {
-
-        if (level == null) {
-            throw new IllegalArgumentException("The 'level' argument cannot be null");
-        }
-
-        return JavaEscapeUtil.escape(text, level);
-
+    
+    try JavaEscapeUtil.escape(text, offset, len, writer, level);
+  }
+  
+  /**
+   * <p>
+   *   Perform a Java <strong>unescape</strong> operation on a <kbd>String</kbd> input.
+   * </p>
+   * <p>
+   *   No additional configuration arguments are required. Unescape operations
+   *   will always perform <em>complete</em> Java unescape of SECs, u-based and octal escapes.
+   * </p>
+   * <p>
+   *   This method is <strong>thread-safe</strong>.
+   * </p>
+   *
+   * @param text the <kbd>String</kbd> to be unescaped.
+   * @return The unescaped result <kbd>String</kbd>. As a memory-performance improvement, will return the exact
+   *         same object as the <kbd>text</kbd> input argument if no unescaping modifications were required (and
+   *         no additional <kbd>String</kbd> objects will be created during processing). Will
+   *         return <kbd>null</kbd> if input is <kbd>null</kbd>.
+   */
+  public static func unescapeJava(_ text : String) throws -> String {
+    if (text.indexOf("\\") < 0) {
+      // Fail fast, avoid more complex (and less JIT-table) method to execute if not needed
+      return text;
     }
-
-
-
-
-    /**
-     * <p>
-     *   Perform a Java level 1 (only basic set) <strong>escape</strong> operation
-     *   on a <kbd>String</kbd> input, writing results to a <kbd>Writer</kbd>.
-     * </p>
-     * <p>
-     *   <em>Level 1</em> means this method will only escape the Java basic escape set:
-     * </p>
-     * <ul>
-     *   <li>The <em>Single Escape Characters</em>:
-     *       <kbd>&#92;b</kbd> (<kbd>U+0008</kbd>),
-     *       <kbd>&#92;t</kbd> (<kbd>U+0009</kbd>),
-     *       <kbd>&#92;n</kbd> (<kbd>U+000A</kbd>),
-     *       <kbd>&#92;f</kbd> (<kbd>U+000C</kbd>),
-     *       <kbd>&#92;r</kbd> (<kbd>U+000D</kbd>),
-     *       <kbd>&#92;&quot;</kbd> (<kbd>U+0022</kbd>),
-     *       <kbd>&#92;&#39;</kbd> (<kbd>U+0027</kbd>) and
-     *       <kbd>&#92;&#92;</kbd> (<kbd>U+005C</kbd>). Note <kbd>&#92;&#39;</kbd> is not really needed in
-     *       String literals (only in Character literals), so it won't be used until escape level 3.
-     *   </li>
-     *   <li>
-     *       Two ranges of non-displayable, control characters (some of which are already part of the
-     *       <em>single escape characters</em> list): <kbd>U+0000</kbd> to <kbd>U+001F</kbd>
-     *       and <kbd>U+007F</kbd> to <kbd>U+009F</kbd>.
-     *   </li>
-     * </ul>
-     * <p>
-     *   This method calls {@link #escapeJava(String, Writer, JavaEscapeLevel)}
-     *   with the following preconfigured values:
-     * </p>
-     * <ul>
-     *   <li><kbd>level</kbd>:
-     *       {@link JavaEscapeLevel#LEVEL_1_BASIC_ESCAPE_SET}</li>
-     * </ul>
-     * <p>
-     *   This method is <strong>thread-safe</strong>.
-     * </p>
-     *
-     * @param text the <kbd>String</kbd> to be escaped.
-     * @param writer the <kbd>java.io.Writer</kbd> to which the escaped result will be written. Nothing will
-     *               be written at all to this writer if input is <kbd>null</kbd>.
-     * @throws IOException if an input/output exception occurs
-     *
-     * @since 1.1.2
-     */
-    public static void escapeJavaMinimal(final String text, final Writer writer)
-            throws IOException {
-        escapeJava(text, writer, JavaEscapeLevel.LEVEL_1_BASIC_ESCAPE_SET);
+    return try JavaEscapeUtil.unescape(text);
+  }
+  
+  /**
+   * <p>
+   *   Perform a Java <strong>unescape</strong> operation on a <kbd>String</kbd> input, writing results
+   *   to a <kbd>Writer</kbd>.
+   * </p>
+   * <p>
+   *   No additional configuration arguments are required. Unescape operations
+   *   will always perform <em>complete</em> Java unescape of SECs, u-based and octal escapes.
+   * </p>
+   * <p>
+   *   This method is <strong>thread-safe</strong>.
+   * </p>
+   *
+   * @param text the <kbd>String</kbd> to be unescaped.
+   * @param writer the <kbd>java.io.Writer</kbd> to which the unescaped result will be written. Nothing will
+   *               be written at all to this writer if input is <kbd>null</kbd>.
+   * @throws IOException if an input/output exception occurs
+   *
+   * @since 1.1.2
+   */
+  public static func unescapeJava(_ text : String, _ writer : java.io.Writer) throws {
+    if (text.indexOf("\\") < 0) {
+      // Fail fast, avoid more complex (and less JIT-table) method to execute if not needed
+      try writer.write(text);
+      return;
     }
-
-
-    /**
-     * <p>
-     *   Perform a Java level 2 (basic set and all non-ASCII chars) <strong>escape</strong> operation
-     *   on a <kbd>String</kbd> input, writing results to a <kbd>Writer</kbd>.
-     * </p>
-     * <p>
-     *   <em>Level 2</em> means this method will escape:
-     * </p>
-     * <ul>
-     *   <li>The Java basic escape set:
-     *         <ul>
-     *           <li>The <em>Single Escape Characters</em>:
-     *               <kbd>&#92;b</kbd> (<kbd>U+0008</kbd>),
-     *               <kbd>&#92;t</kbd> (<kbd>U+0009</kbd>),
-     *               <kbd>&#92;n</kbd> (<kbd>U+000A</kbd>),
-     *               <kbd>&#92;f</kbd> (<kbd>U+000C</kbd>),
-     *               <kbd>&#92;r</kbd> (<kbd>U+000D</kbd>),
-     *               <kbd>&#92;&quot;</kbd> (<kbd>U+0022</kbd>),
-     *               <kbd>&#92;&#39;</kbd> (<kbd>U+0027</kbd>) and
-     *               <kbd>&#92;&#92;</kbd> (<kbd>U+005C</kbd>). Note <kbd>&#92;&#39;</kbd> is not really needed in
-     *               String literals (only in Character literals), so it won't be used until escape level 3.
-     *           </li>
-     *           <li>
-     *               Two ranges of non-displayable, control characters (some of which are already part of the
-     *               <em>single escape characters</em> list): <kbd>U+0000</kbd> to <kbd>U+001F</kbd>
-     *               and <kbd>U+007F</kbd> to <kbd>U+009F</kbd>.
-     *           </li>
-     *         </ul>
-     *   </li>
-     *   <li>All non ASCII characters.</li>
-     * </ul>
-     * <p>
-     *   This escape will be performed by using the Single Escape Chars whenever possible. For escaped
-     *   characters that do not have an associated SEC, default to <kbd>&#92;uFFFF</kbd>
-     *   Hexadecimal Escapes.
-     * </p>
-     * <p>
-     *   This method calls {@link #escapeJava(String, Writer, JavaEscapeLevel)}
-     *   with the following preconfigured values:
-     * </p>
-     * <ul>
-     *   <li><kbd>level</kbd>:
-     *       {@link JavaEscapeLevel#LEVEL_2_ALL_NON_ASCII_PLUS_BASIC_ESCAPE_SET}</li>
-     * </ul>
-     * <p>
-     *   This method is <strong>thread-safe</strong>.
-     * </p>
-     *
-     * @param text the <kbd>String</kbd> to be escaped.
-     * @param writer the <kbd>java.io.Writer</kbd> to which the escaped result will be written. Nothing will
-     *               be written at all to this writer if input is <kbd>null</kbd>.
-     * @throws IOException if an input/output exception occurs
-     *
-     * @since 1.1.2
-     */
-    public static void escapeJava(final String text, final Writer writer)
-            throws IOException {
-        escapeJava(text, writer, JavaEscapeLevel.LEVEL_2_ALL_NON_ASCII_PLUS_BASIC_ESCAPE_SET);
+    
+    try JavaEscapeUtil.unescape(InternalStringReader(text), writer);
+  }
+  
+  /**
+   * <p>
+   *   Perform a Java <strong>unescape</strong> operation on a <kbd>Reader</kbd> input, writing results
+   *   to a <kbd>Writer</kbd>.
+   * </p>
+   * <p>
+   *   No additional configuration arguments are required. Unescape operations
+   *   will always perform <em>complete</em> Java unescape of SECs, u-based and octal escapes.
+   * </p>
+   * <p>
+   *   This method is <strong>thread-safe</strong>.
+   * </p>
+   *
+   * @param reader the <kbd>Reader</kbd> reading the text to be unescaped.
+   * @param writer the <kbd>java.io.Writer</kbd> to which the unescaped result will be written. Nothing will
+   *               be written at all to this writer if input is <kbd>null</kbd>.
+   * @throws IOException if an input/output exception occurs
+   *
+   * @since 1.1.2
+   */
+  public static func unescapeJava(_ reader : java.io.Reader, _ writer : java.io.Writer) throws {
+    try JavaEscapeUtil.unescape(reader, writer);
+  }
+  
+  /**
+   * <p>
+   *   Perform a Java <strong>unescape</strong> operation on a <kbd>char[]</kbd> input.
+   * </p>
+   * <p>
+   *   No additional configuration arguments are required. Unescape operations
+   *   will always perform <em>complete</em> Java unescape of SECs, u-based and octal escapes.
+   * </p>
+   * <p>
+   *   This method is <strong>thread-safe</strong>.
+   * </p>
+   *
+   * @param text the <kbd>char[]</kbd> to be unescaped.
+   * @param offset the position in <kbd>text</kbd> at which the unescape operation should start.
+   * @param len the number of characters in <kbd>text</kbd> that should be unescaped.
+   * @param writer the <kbd>java.io.Writer</kbd> to which the unescaped result will be written. Nothing will
+   *               be written at all to this writer if input is <kbd>null</kbd>.
+   * @throws IOException if an input/output exception occurs
+   */
+  public static func unescapeJava(_ text : [Character], _ offset : Int, _ len : Int, _ writer : java.io.Writer) throws {
+    let textLen = text.count
+    
+    if (offset < 0 || offset > textLen) {
+      throw Throwable.IllegalArgumentException("Invalid (offset, len). offset=\(offset), len=\(len), text.length=\(textLen)")
     }
-
-
-    /**
-     * <p>
-     *   Perform a (configurable) Java <strong>escape</strong> operation on a <kbd>String</kbd> input,
-     *   writing results to a <kbd>Writer</kbd>.
-     * </p>
-     * <p>
-     *   This method will perform an escape operation according to the specified
-     *   {@link org.unbescape.java.JavaEscapeLevel} argument value.
-     * </p>
-     * <p>
-     *   All other <kbd>String</kbd>/<kbd>Writer</kbd>-based <kbd>escapeJava*(...)</kbd> methods call this one with preconfigured
-     *   <kbd>level</kbd> values.
-     * </p>
-     * <p>
-     *   This method is <strong>thread-safe</strong>.
-     * </p>
-     *
-     * @param text the <kbd>String</kbd> to be escaped.
-     * @param writer the <kbd>java.io.Writer</kbd> to which the escaped result will be written. Nothing will
-     *               be written at all to this writer if input is <kbd>null</kbd>.
-     * @param level the escape level to be applied, see {@link org.unbescape.java.JavaEscapeLevel}.
-     * @throws IOException if an input/output exception occurs
-     *
-     * @since 1.1.2
-     */
-    public static void escapeJava(final String text, final Writer writer, final JavaEscapeLevel level)
-            throws IOException {
-
-        if (writer == null) {
-            throw new IllegalArgumentException("Argument 'writer' cannot be null");
-        }
-
-        if (level == null) {
-            throw new IllegalArgumentException("The 'level' argument cannot be null");
-        }
-
-        JavaEscapeUtil.escape(new InternalStringReader(text), writer, level);
-
+    
+    if (len < 0 || (offset + len) > textLen) {
+      throw Throwable.IllegalArgumentException("Invalid (offset, len). offset=\(offset), len=\(len), text.length=\(textLen)")
     }
-
-
-
-
-    /**
-     * <p>
-     *   Perform a Java level 1 (only basic set) <strong>escape</strong> operation
-     *   on a <kbd>Reader</kbd> input, writing results to a <kbd>Writer</kbd>.
-     * </p>
-     * <p>
-     *   <em>Level 1</em> means this method will only escape the Java basic escape set:
-     * </p>
-     * <ul>
-     *   <li>The <em>Single Escape Characters</em>:
-     *       <kbd>&#92;b</kbd> (<kbd>U+0008</kbd>),
-     *       <kbd>&#92;t</kbd> (<kbd>U+0009</kbd>),
-     *       <kbd>&#92;n</kbd> (<kbd>U+000A</kbd>),
-     *       <kbd>&#92;f</kbd> (<kbd>U+000C</kbd>),
-     *       <kbd>&#92;r</kbd> (<kbd>U+000D</kbd>),
-     *       <kbd>&#92;&quot;</kbd> (<kbd>U+0022</kbd>),
-     *       <kbd>&#92;&#39;</kbd> (<kbd>U+0027</kbd>) and
-     *       <kbd>&#92;&#92;</kbd> (<kbd>U+005C</kbd>). Note <kbd>&#92;&#39;</kbd> is not really needed in
-     *       String literals (only in Character literals), so it won't be used until escape level 3.
-     *   </li>
-     *   <li>
-     *       Two ranges of non-displayable, control characters (some of which are already part of the
-     *       <em>single escape characters</em> list): <kbd>U+0000</kbd> to <kbd>U+001F</kbd>
-     *       and <kbd>U+007F</kbd> to <kbd>U+009F</kbd>.
-     *   </li>
-     * </ul>
-     * <p>
-     *   This method calls {@link #escapeJava(Reader, Writer, JavaEscapeLevel)}
-     *   with the following preconfigured values:
-     * </p>
-     * <ul>
-     *   <li><kbd>level</kbd>:
-     *       {@link JavaEscapeLevel#LEVEL_1_BASIC_ESCAPE_SET}</li>
-     * </ul>
-     * <p>
-     *   This method is <strong>thread-safe</strong>.
-     * </p>
-     *
-     * @param reader the <kbd>Reader</kbd> reading the text to be escaped.
-     * @param writer the <kbd>java.io.Writer</kbd> to which the escaped result will be written. Nothing will
-     *               be written at all to this writer if input is <kbd>null</kbd>.
-     * @throws IOException if an input/output exception occurs
-     *
-     * @since 1.1.2
-     */
-    public static void escapeJavaMinimal(final Reader reader, final Writer writer)
-            throws IOException {
-        escapeJava(reader, writer, JavaEscapeLevel.LEVEL_1_BASIC_ESCAPE_SET);
-    }
-
-
-    /**
-     * <p>
-     *   Perform a Java level 2 (basic set and all non-ASCII chars) <strong>escape</strong> operation
-     *   on a <kbd>Reader</kbd> input, writing results to a <kbd>Writer</kbd>.
-     * </p>
-     * <p>
-     *   <em>Level 2</em> means this method will escape:
-     * </p>
-     * <ul>
-     *   <li>The Java basic escape set:
-     *         <ul>
-     *           <li>The <em>Single Escape Characters</em>:
-     *               <kbd>&#92;b</kbd> (<kbd>U+0008</kbd>),
-     *               <kbd>&#92;t</kbd> (<kbd>U+0009</kbd>),
-     *               <kbd>&#92;n</kbd> (<kbd>U+000A</kbd>),
-     *               <kbd>&#92;f</kbd> (<kbd>U+000C</kbd>),
-     *               <kbd>&#92;r</kbd> (<kbd>U+000D</kbd>),
-     *               <kbd>&#92;&quot;</kbd> (<kbd>U+0022</kbd>),
-     *               <kbd>&#92;&#39;</kbd> (<kbd>U+0027</kbd>) and
-     *               <kbd>&#92;&#92;</kbd> (<kbd>U+005C</kbd>). Note <kbd>&#92;&#39;</kbd> is not really needed in
-     *               String literals (only in Character literals), so it won't be used until escape level 3.
-     *           </li>
-     *           <li>
-     *               Two ranges of non-displayable, control characters (some of which are already part of the
-     *               <em>single escape characters</em> list): <kbd>U+0000</kbd> to <kbd>U+001F</kbd>
-     *               and <kbd>U+007F</kbd> to <kbd>U+009F</kbd>.
-     *           </li>
-     *         </ul>
-     *   </li>
-     *   <li>All non ASCII characters.</li>
-     * </ul>
-     * <p>
-     *   This escape will be performed by using the Single Escape Chars whenever possible. For escaped
-     *   characters that do not have an associated SEC, default to <kbd>&#92;uFFFF</kbd>
-     *   Hexadecimal Escapes.
-     * </p>
-     * <p>
-     *   This method calls {@link #escapeJava(Reader, Writer, JavaEscapeLevel)}
-     *   with the following preconfigured values:
-     * </p>
-     * <ul>
-     *   <li><kbd>level</kbd>:
-     *       {@link JavaEscapeLevel#LEVEL_2_ALL_NON_ASCII_PLUS_BASIC_ESCAPE_SET}</li>
-     * </ul>
-     * <p>
-     *   This method is <strong>thread-safe</strong>.
-     * </p>
-     *
-     * @param reader the <kbd>Reader</kbd> reading the text to be escaped.
-     * @param writer the <kbd>java.io.Writer</kbd> to which the escaped result will be written. Nothing will
-     *               be written at all to this writer if input is <kbd>null</kbd>.
-     * @throws IOException if an input/output exception occurs
-     *
-     * @since 1.1.2
-     */
-    public static void escapeJava(final Reader reader, final Writer writer)
-            throws IOException {
-        escapeJava(reader, writer, JavaEscapeLevel.LEVEL_2_ALL_NON_ASCII_PLUS_BASIC_ESCAPE_SET);
-    }
-
-
-    /**
-     * <p>
-     *   Perform a (configurable) Java <strong>escape</strong> operation on a <kbd>Reader</kbd> input,
-     *   writing results to a <kbd>Writer</kbd>.
-     * </p>
-     * <p>
-     *   This method will perform an escape operation according to the specified
-     *   {@link org.unbescape.java.JavaEscapeLevel} argument value.
-     * </p>
-     * <p>
-     *   All other <kbd>String</kbd>/<kbd>Writer</kbd>-based <kbd>escapeJava*(...)</kbd> methods call this one with preconfigured
-     *   <kbd>level</kbd> values.
-     * </p>
-     * <p>
-     *   This method is <strong>thread-safe</strong>.
-     * </p>
-     *
-     * @param reader the <kbd>Reader</kbd> reading the text to be escaped.
-     * @param writer the <kbd>java.io.Writer</kbd> to which the escaped result will be written. Nothing will
-     *               be written at all to this writer if input is <kbd>null</kbd>.
-     * @param level the escape level to be applied, see {@link org.unbescape.java.JavaEscapeLevel}.
-     * @throws IOException if an input/output exception occurs
-     *
-     * @since 1.1.2
-     */
-    public static void escapeJava(final Reader reader, final Writer writer, final JavaEscapeLevel level)
-            throws IOException {
-
-        if (writer == null) {
-            throw new IllegalArgumentException("Argument 'writer' cannot be null");
-        }
-
-        if (level == null) {
-            throw new IllegalArgumentException("The 'level' argument cannot be null");
-        }
-
-        JavaEscapeUtil.escape(reader, writer, level);
-
-    }
-
-
-
-
-    /**
-     * <p>
-     *   Perform a Java level 1 (only basic set) <strong>escape</strong> operation
-     *   on a <kbd>char[]</kbd> input.
-     * </p>
-     * <p>
-     *   <em>Level 1</em> means this method will only escape the Java basic escape set:
-     * </p>
-     * <ul>
-     *   <li>The <em>Single Escape Characters</em>:
-     *       <kbd>&#92;b</kbd> (<kbd>U+0008</kbd>),
-     *       <kbd>&#92;t</kbd> (<kbd>U+0009</kbd>),
-     *       <kbd>&#92;n</kbd> (<kbd>U+000A</kbd>),
-     *       <kbd>&#92;f</kbd> (<kbd>U+000C</kbd>),
-     *       <kbd>&#92;r</kbd> (<kbd>U+000D</kbd>),
-     *       <kbd>&#92;&quot;</kbd> (<kbd>U+0022</kbd>),
-     *       <kbd>&#92;&#39;</kbd> (<kbd>U+0027</kbd>) and
-     *       <kbd>&#92;&#92;</kbd> (<kbd>U+005C</kbd>). Note <kbd>&#92;&#39;</kbd> is not really needed in
-     *       String literals (only in Character literals), so it won't be used until escape level 3.
-     *   </li>
-     *   <li>
-     *       Two ranges of non-displayable, control characters (some of which are already part of the
-     *       <em>single escape characters</em> list): <kbd>U+0000</kbd> to <kbd>U+001F</kbd>
-     *       and <kbd>U+007F</kbd> to <kbd>U+009F</kbd>.
-     *   </li>
-     * </ul>
-     * <p>
-     *   This method calls {@link #escapeJava(char[], int, int, java.io.Writer, JavaEscapeLevel)}
-     *   with the following preconfigured values:
-     * </p>
-     * <ul>
-     *   <li><kbd>level</kbd>:
-     *       {@link JavaEscapeLevel#LEVEL_1_BASIC_ESCAPE_SET}</li>
-     * </ul>
-     * <p>
-     *   This method is <strong>thread-safe</strong>.
-     * </p>
-     *
-     * @param text the <kbd>char[]</kbd> to be escaped.
-     * @param offset the position in <kbd>text</kbd> at which the escape operation should start.
-     * @param len the number of characters in <kbd>text</kbd> that should be escaped.
-     * @param writer the <kbd>java.io.Writer</kbd> to which the escaped result will be written. Nothing will
-     *               be written at all to this writer if input is <kbd>null</kbd>.
-     * @throws IOException if an input/output exception occurs
-     */
-    public static void escapeJavaMinimal(final char[] text, final int offset, final int len, final Writer writer)
-                                         throws IOException {
-        escapeJava(text, offset, len, writer, JavaEscapeLevel.LEVEL_1_BASIC_ESCAPE_SET);
-    }
-
-
-    /**
-     * <p>
-     *   Perform a Java level 2 (basic set and all non-ASCII chars) <strong>escape</strong> operation
-     *   on a <kbd>char[]</kbd> input.
-     * </p>
-     * <p>
-     *   <em>Level 2</em> means this method will escape:
-     * </p>
-     * <ul>
-     *   <li>The Java basic escape set:
-     *         <ul>
-     *           <li>The <em>Single Escape Characters</em>:
-     *               <kbd>&#92;b</kbd> (<kbd>U+0008</kbd>),
-     *               <kbd>&#92;t</kbd> (<kbd>U+0009</kbd>),
-     *               <kbd>&#92;n</kbd> (<kbd>U+000A</kbd>),
-     *               <kbd>&#92;f</kbd> (<kbd>U+000C</kbd>),
-     *               <kbd>&#92;r</kbd> (<kbd>U+000D</kbd>),
-     *               <kbd>&#92;&quot;</kbd> (<kbd>U+0022</kbd>),
-     *               <kbd>&#92;&#39;</kbd> (<kbd>U+0027</kbd>) and
-     *               <kbd>&#92;&#92;</kbd> (<kbd>U+005C</kbd>). Note <kbd>&#92;&#39;</kbd> is not really needed in
-     *               String literals (only in Character literals), so it won't be used until escape level 3.
-     *           </li>
-     *           <li>
-     *               Two ranges of non-displayable, control characters (some of which are already part of the
-     *               <em>single escape characters</em> list): <kbd>U+0000</kbd> to <kbd>U+001F</kbd>
-     *               and <kbd>U+007F</kbd> to <kbd>U+009F</kbd>.
-     *           </li>
-     *         </ul>
-     *   </li>
-     *   <li>All non ASCII characters.</li>
-     * </ul>
-     * <p>
-     *   This escape will be performed by using the Single Escape Chars whenever possible. For escaped
-     *   characters that do not have an associated SEC, default to <kbd>&#92;uFFFF</kbd>
-     *   Hexadecimal Escapes.
-     * </p>
-     * <p>
-     *   This method calls {@link #escapeJava(char[], int, int, java.io.Writer, JavaEscapeLevel)}
-     *   with the following preconfigured values:
-     * </p>
-     * <ul>
-     *   <li><kbd>level</kbd>:
-     *       {@link JavaEscapeLevel#LEVEL_2_ALL_NON_ASCII_PLUS_BASIC_ESCAPE_SET}</li>
-     * </ul>
-     * <p>
-     *   This method is <strong>thread-safe</strong>.
-     * </p>
-     *
-     * @param text the <kbd>char[]</kbd> to be escaped.
-     * @param offset the position in <kbd>text</kbd> at which the escape operation should start.
-     * @param len the number of characters in <kbd>text</kbd> that should be escaped.
-     * @param writer the <kbd>java.io.Writer</kbd> to which the escaped result will be written. Nothing will
-     *               be written at all to this writer if input is <kbd>null</kbd>.
-     * @throws IOException if an input/output exception occurs
-     */
-    public static void escapeJava(final char[] text, final int offset, final int len, final Writer writer)
-                                  throws IOException {
-        escapeJava(text, offset, len, writer, JavaEscapeLevel.LEVEL_2_ALL_NON_ASCII_PLUS_BASIC_ESCAPE_SET);
-    }
-
-
-    /**
-     * <p>
-     *   Perform a (configurable) Java <strong>escape</strong> operation on a <kbd>char[]</kbd> input.
-     * </p>
-     * <p>
-     *   This method will perform an escape operation according to the specified
-     *   {@link org.unbescape.java.JavaEscapeLevel} argument value.
-     * </p>
-     * <p>
-     *   All other <kbd>char[]</kbd>-based <kbd>escapeJava*(...)</kbd> methods call this one with preconfigured
-     *   <kbd>level</kbd> values.
-     * </p>
-     * <p>
-     *   This method is <strong>thread-safe</strong>.
-     * </p>
-     *
-     * @param text the <kbd>char[]</kbd> to be escaped.
-     * @param offset the position in <kbd>text</kbd> at which the escape operation should start.
-     * @param len the number of characters in <kbd>text</kbd> that should be escaped.
-     * @param writer the <kbd>java.io.Writer</kbd> to which the escaped result will be written. Nothing will
-     *               be written at all to this writer if input is <kbd>null</kbd>.
-     * @param level the escape level to be applied, see {@link org.unbescape.java.JavaEscapeLevel}.
-     * @throws IOException if an input/output exception occurs
-     */
-    public static void escapeJava(final char[] text, final int offset, final int len, final Writer writer,
-                                  final JavaEscapeLevel level)
-                                  throws IOException {
-
-        if (writer == null) {
-            throw new IllegalArgumentException("Argument 'writer' cannot be null");
-        }
-
-        if (level == null) {
-            throw new IllegalArgumentException("The 'level' argument cannot be null");
-        }
-
-        final int textLen = (text == null? 0 : text.length);
-
-        if (offset < 0 || offset > textLen) {
-            throw new IllegalArgumentException(
-                    "Invalid (offset, len). offset=" + offset + ", len=" + len + ", text.length=" + textLen);
-        }
-
-        if (len < 0 || (offset + len) > textLen) {
-            throw new IllegalArgumentException(
-                    "Invalid (offset, len). offset=" + offset + ", len=" + len + ", text.length=" + textLen);
-        }
-
-        JavaEscapeUtil.escape(text, offset, len, writer, level);
-
-    }
-
-
-
-
-
-
-
-
-    /**
-     * <p>
-     *   Perform a Java <strong>unescape</strong> operation on a <kbd>String</kbd> input.
-     * </p>
-     * <p>
-     *   No additional configuration arguments are required. Unescape operations
-     *   will always perform <em>complete</em> Java unescape of SECs, u-based and octal escapes.
-     * </p>
-     * <p>
-     *   This method is <strong>thread-safe</strong>.
-     * </p>
-     *
-     * @param text the <kbd>String</kbd> to be unescaped.
-     * @return The unescaped result <kbd>String</kbd>. As a memory-performance improvement, will return the exact
-     *         same object as the <kbd>text</kbd> input argument if no unescaping modifications were required (and
-     *         no additional <kbd>String</kbd> objects will be created during processing). Will
-     *         return <kbd>null</kbd> if input is <kbd>null</kbd>.
-     */
-    public static String unescapeJava(final String text) {
-        if (text == null) {
-            return null;
-        }
-        if (text.indexOf('\\') < 0) {
-            // Fail fast, avoid more complex (and less JIT-table) method to execute if not needed
-            return text;
-        }
-        return JavaEscapeUtil.unescape(text);
-    }
-
-
-    /**
-     * <p>
-     *   Perform a Java <strong>unescape</strong> operation on a <kbd>String</kbd> input, writing results
-     *   to a <kbd>Writer</kbd>.
-     * </p>
-     * <p>
-     *   No additional configuration arguments are required. Unescape operations
-     *   will always perform <em>complete</em> Java unescape of SECs, u-based and octal escapes.
-     * </p>
-     * <p>
-     *   This method is <strong>thread-safe</strong>.
-     * </p>
-     *
-     * @param text the <kbd>String</kbd> to be unescaped.
-     * @param writer the <kbd>java.io.Writer</kbd> to which the unescaped result will be written. Nothing will
-     *               be written at all to this writer if input is <kbd>null</kbd>.
-     * @throws IOException if an input/output exception occurs
-     *
-     * @since 1.1.2
-     */
-    public static void unescapeJava(final String text, final Writer writer)
-            throws IOException {
-
-        if (writer == null) {
-            throw new IllegalArgumentException("Argument 'writer' cannot be null");
-        }
-        if (text == null) {
-            return;
-        }
-        if (text.indexOf('\\') < 0) {
-            // Fail fast, avoid more complex (and less JIT-table) method to execute if not needed
-            writer.write(text);
-            return;
-        }
-
-        JavaEscapeUtil.unescape(new InternalStringReader(text), writer);
-
-    }
-
-
-    /**
-     * <p>
-     *   Perform a Java <strong>unescape</strong> operation on a <kbd>Reader</kbd> input, writing results
-     *   to a <kbd>Writer</kbd>.
-     * </p>
-     * <p>
-     *   No additional configuration arguments are required. Unescape operations
-     *   will always perform <em>complete</em> Java unescape of SECs, u-based and octal escapes.
-     * </p>
-     * <p>
-     *   This method is <strong>thread-safe</strong>.
-     * </p>
-     *
-     * @param reader the <kbd>Reader</kbd> reading the text to be unescaped.
-     * @param writer the <kbd>java.io.Writer</kbd> to which the unescaped result will be written. Nothing will
-     *               be written at all to this writer if input is <kbd>null</kbd>.
-     * @throws IOException if an input/output exception occurs
-     *
-     * @since 1.1.2
-     */
-    public static void unescapeJava(final Reader reader, final Writer writer)
-            throws IOException {
-
-        if (writer == null) {
-            throw new IllegalArgumentException("Argument 'writer' cannot be null");
-        }
-
-        JavaEscapeUtil.unescape(reader, writer);
-
-    }
-
-
-    /**
-     * <p>
-     *   Perform a Java <strong>unescape</strong> operation on a <kbd>char[]</kbd> input.
-     * </p>
-     * <p>
-     *   No additional configuration arguments are required. Unescape operations
-     *   will always perform <em>complete</em> Java unescape of SECs, u-based and octal escapes.
-     * </p>
-     * <p>
-     *   This method is <strong>thread-safe</strong>.
-     * </p>
-     *
-     * @param text the <kbd>char[]</kbd> to be unescaped.
-     * @param offset the position in <kbd>text</kbd> at which the unescape operation should start.
-     * @param len the number of characters in <kbd>text</kbd> that should be unescaped.
-     * @param writer the <kbd>java.io.Writer</kbd> to which the unescaped result will be written. Nothing will
-     *               be written at all to this writer if input is <kbd>null</kbd>.
-     * @throws IOException if an input/output exception occurs
-     */
-    public static void unescapeJava(final char[] text, final int offset, final int len, final Writer writer)
-                                    throws IOException{
-
-        if (writer == null) {
-            throw new IllegalArgumentException("Argument 'writer' cannot be null");
-        }
-
-        final int textLen = (text == null? 0 : text.length);
-
-        if (offset < 0 || offset > textLen) {
-            throw new IllegalArgumentException(
-                    "Invalid (offset, len). offset=" + offset + ", len=" + len + ", text.length=" + textLen);
-        }
-
-        if (len < 0 || (offset + len) > textLen) {
-            throw new IllegalArgumentException(
-                    "Invalid (offset, len). offset=" + offset + ", len=" + len + ", text.length=" + textLen);
-        }
-
-        JavaEscapeUtil.unescape(text, offset, len, writer);
-
-    }
-
-
-
-
-    private JavaEscape() {
-        super();
-    }
-
-
-
-    /*
-     * This is basically a very simplified, thread-unsafe version of StringReader that should
-     * perform better than the original StringReader by removing all synchronization structures.
-     *
-     * Note the only implemented methods are those that we know are really used from within the
-     * stream-based escape/unescape operations.
-     */
-    private static final class InternalStringReader extends Reader {
-
-        private String str;
-        private int length;
-        private int next = 0;
-
-        public InternalStringReader(final String s) {
-            super();
-            this.str = s;
-            this.length = s.length();
-        }
-
-        @Override
-        public int read() throws IOException {
-            if (this.next >= length) {
-                return -1;
-            }
-            return this.str.charAt(this.next++);
-        }
-
-        @Override
-        public int read(final char[] cbuf, final int off, final int len) throws IOException {
-            if ((off < 0) || (off > cbuf.length) || (len < 0) ||
-                    ((off + len) > cbuf.length) || ((off + len) < 0)) {
-                throw new IndexOutOfBoundsException();
-            } else if (len == 0) {
-                return 0;
-            }
-            if (this.next >= this.length) {
-                return -1;
-            }
-            int n = Math.min(this.length - this.next, len);
-            this.str.getChars(this.next, this.next + n, cbuf, off);
-            this.next += n;
-            return n;
-        }
-
-        @Override
-        public void close() throws IOException {
-            this.str = null; // Just set the reference to null, help the GC
-        }
-
-    }
-
-
+    try JavaEscapeUtil.unescape(text, offset, len, writer);
+  }
+  
+  private init() {
+  }
 }
-

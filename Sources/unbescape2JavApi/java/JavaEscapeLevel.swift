@@ -1,8 +1,6 @@
 /*
  * =============================================================================
  * 
- *   Copyright (c) 2014-2025 Unbescape (http://www.unbescape.org)
- * 
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
  *   You may obtain a copy of the License at
@@ -17,7 +15,7 @@
  * 
  * =============================================================================
  */
-package org.unbescape.java;
+import JavApi
 
 /**
  * <p>
@@ -69,66 +67,60 @@ package org.unbescape.java;
  *
  */
 public enum JavaEscapeLevel {
-
-    /**
-     * Level 1 escape: escape only the basic escape set: Single Escape Chars plus non-displayable control chars.
-     */
-    LEVEL_1_BASIC_ESCAPE_SET(1),
-
-    /**
-     * Level 2 escape: escape the basic escape set plus all non-ASCII characters (result will always be ASCII).
-     */
-    LEVEL_2_ALL_NON_ASCII_PLUS_BASIC_ESCAPE_SET(2),
-
-    /**
-     * Level 3 escape: escape all non-alphanumeric characteres (escape all but those in the
-     * <kbd>A</kbd>-<kbd>Z</kbd>, <kbd>a</kbd>-<kbd>z</kbd> and <kbd>0</kbd>-<kbd>9</kbd> ranges).
-     */
-    LEVEL_3_ALL_NON_ALPHANUMERIC(3),
-
-    /**
-     * Level 4 escape: escape all characters, including alphanumeric.
-     */
-    LEVEL_4_ALL_CHARACTERS(4);
-
-
-
-
-    private final int escapeLevel;
-
-
-    /**
-     * <p>
-     *   Utility method for obtaining an enum value from its corresponding <kbd>int</kbd> level value.
-     * </p>
-     *
-     * @param level the level
-     * @return the escape level enum constant, or <kbd>IllegalArgumentException</kbd> if level does not exist.
-     */
-    public static JavaEscapeLevel forLevel(final int level) {
-        switch (level) {
-            case 1: return LEVEL_1_BASIC_ESCAPE_SET;
-            case 2: return LEVEL_2_ALL_NON_ASCII_PLUS_BASIC_ESCAPE_SET;
-            case 3: return LEVEL_3_ALL_NON_ALPHANUMERIC;
-            case 4: return LEVEL_4_ALL_CHARACTERS;
-            default:
-                throw new IllegalArgumentException("No escape level enum constant defined for level: " + level);
-        }
+  
+  /**
+   * Level 1 escape: escape only the basic escape set: Single Escape Chars plus non-displayable control chars.
+   */
+  case LEVEL_1_BASIC_ESCAPE_SET(value : Int = 1)
+  
+  /**
+   * Level 2 escape: escape the basic escape set plus all non-ASCII characters (result will always be ASCII).
+   */
+  case LEVEL_2_ALL_NON_ASCII_PLUS_BASIC_ESCAPE_SET(value : Int = 2)
+  
+  /**
+   * Level 3 escape: escape all non-alphanumeric characteres (escape all but those in the
+   * <kbd>A</kbd>-<kbd>Z</kbd>, <kbd>a</kbd>-<kbd>z</kbd> and <kbd>0</kbd>-<kbd>9</kbd> ranges).
+   */
+  case LEVEL_3_ALL_NON_ALPHANUMERIC(value : Int = 3)
+  
+  /**
+   * Level 4 escape: escape all characters, including alphanumeric.
+   */
+  case LEVEL_4_ALL_CHARACTERS(value : Int = 4)
+  
+  /**
+   * <p>
+   *   Utility method for obtaining an enum value from its corresponding <kbd>int</kbd> level value.
+   * </p>
+   *
+   * @param level the level
+   * @return the escape level enum constant, or <kbd>IllegalArgumentException</kbd> if level does not exist.
+   */
+  public static func forLevel (_ level : Int) throws -> JavaEscapeLevel {
+    switch (level) {
+    case 1: return LEVEL_1_BASIC_ESCAPE_SET()
+    case 2: return LEVEL_2_ALL_NON_ASCII_PLUS_BASIC_ESCAPE_SET()
+    case 3: return LEVEL_3_ALL_NON_ALPHANUMERIC()
+    case 4: return LEVEL_4_ALL_CHARACTERS()
+    default:
+      throw Throwable.IllegalArgumentException("No escape level enum constant defined for level: \(level)")
     }
-
-
-    JavaEscapeLevel(final int escapeLevel) {
-        this.escapeLevel = escapeLevel;
+  }
+  
+  /**
+   * Return the <kbd>int</kbd> escape level.
+   *
+   * @return the escape level.
+   */
+  public func getEscapeLevel() -> Int {
+    switch self {
+    case let .LEVEL_1_BASIC_ESCAPE_SET(v): fallthrough
+    case let .LEVEL_2_ALL_NON_ASCII_PLUS_BASIC_ESCAPE_SET(v): fallthrough
+    case let .LEVEL_3_ALL_NON_ALPHANUMERIC(v): fallthrough
+    case let .LEVEL_4_ALL_CHARACTERS(v):
+      return v
     }
-
-    /**
-     * Return the <kbd>int</kbd> escape level.
-     *
-     * @return the escape level.
-     */
-    public int getEscapeLevel() {
-        return this.escapeLevel;
-    }
-
+  }
+  
 }
-
